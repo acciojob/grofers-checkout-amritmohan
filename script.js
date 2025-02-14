@@ -1,6 +1,4 @@
-const getSumBtn = document.createElement("button");
-getSumBtn.textContent = "Get Total Price";
-document.body.appendChild(getSumBtn); 
+const getSumBtn = document.getElementById("getSumBtn");
 
 const getSum = () => {
     // Get all the price elements (with class "price")
