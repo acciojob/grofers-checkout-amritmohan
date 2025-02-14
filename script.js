@@ -1,32 +1,35 @@
-const getSum = () => {
-    let total = 0;
-    const prices = document.querySelectorAll(".price"); // Select all price elements
+const getSumBtn = document.createElement("button");
+getSumBtn.textContent = "Get Total Price";
+document.body.appendChild(getSumBtn); 
 
-    prices.forEach(price => {
-        total += Number(price.textContent.trim()); // Convert text to number and sum up
+const getSum = () => {
+    // Get all the price elements (with class "price")
+    const priceElements = document.querySelectorAll('.price');
+    
+    // Initialize total price to 0
+    let totalPrice = 0;
+
+    // Loop through each price element and add its value to the total price
+    priceElements.forEach(function(priceElement) {
+        totalPrice += parseInt(priceElement.innerText, 10); // Convert string to integer and add
     });
 
-    // Get the table
-    const table = document.querySelector("table");
+    // Create a new row in the table for the total price
+    const table = document.querySelector('table');
+    const newRow = document.createElement('tr');
+    const totalCell = document.createElement('td');
+    totalCell.colSpan = 2; // Span across both columns of the table
+    totalCell.textContent = `Total: Rs ${totalPrice}`; // Set the total price text
 
-    // Remove existing total row if it exists
-    const existingTotalRow = document.getElementById("totalRow");
-    if (existingTotalRow) {
-        existingTotalRow.remove();
-    }
-
-    // Create a new row for the total price
-    const newRow = document.createElement("tr");
-    newRow.id = "totalRow"; // Assign an ID to prevent duplicate rows
-
-    const totalCell = document.createElement("td");
-    totalCell.colSpan = 2; // Span across both columns
-    totalCell.style.fontWeight = "bold";
-    totalCell.textContent = `Total Price: Rs ${total}`;
-
+    // Append the total cell to the new row
     newRow.appendChild(totalCell);
+
+    // Append the new row to the table
     table.appendChild(newRow);
+
+    // Optionally, you can also display the total price in the paragraph
+    const ansParagraph = document.getElementById('ans');
+    ansParagraph.textContent = `Total Price: Rs ${totalPrice}`;
 };
 
-// Attach event listener to the existing button
-document.getElementById("calculate").addEventListener("click", getSum);
+getSumBtn.addEventListener("click", getSum);
