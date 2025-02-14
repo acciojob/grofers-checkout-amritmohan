@@ -1,25 +1,21 @@
-
-const getSumBtn = document.createElement("button");
-getSumBtn.textContent = "Get Total Price";
-document.body.appendChild(getSumBtn); 
-
 const getSum = () => {
-	let total = 0;
+    let total = 0;
     const prices = document.querySelectorAll(".price"); // Select all price elements
 
     prices.forEach(price => {
-        total += Number(price.textContent); // Convert text to number and sum up
+        total += Number(price.textContent.trim()); // Convert text to number and sum up
     });
 
-    // Add a new row at the end of the table
+    // Get the table
     const table = document.querySelector("table");
 
-    // Remove old total row if it exists
+    // Remove existing total row if it exists
     const existingTotalRow = document.getElementById("totalRow");
     if (existingTotalRow) {
         existingTotalRow.remove();
     }
 
+    // Create a new row for the total price
     const newRow = document.createElement("tr");
     newRow.id = "totalRow"; // Assign an ID to prevent duplicate rows
 
@@ -30,7 +26,7 @@ const getSum = () => {
 
     newRow.appendChild(totalCell);
     table.appendChild(newRow);
-    
 };
 
-getSumBtn.addEventListener("click", getSum);
+// Attach event listener to the existing button
+document.getElementById("calculate").addEventListener("click", getSum);
